@@ -111,7 +111,17 @@ const completeHabit = async (req, res) => {
     }
 
     const today = new Date();
+    const alreadyCompletedToday = habit.completedDates.some(
+  (date) =>
+    new Date(date).toDateString() ===
+    today.toDateString()
+);
 
+if (alreadyCompletedToday) {
+  return res.status(400).json({
+    message: "Habit already completed today",
+  });
+}
     // Add today's completion
     habit.completedDates.push(today);
 
