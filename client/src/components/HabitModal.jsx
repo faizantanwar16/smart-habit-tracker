@@ -2,11 +2,11 @@ import { useState } from 'react';
 import api from '../api/axios';
 
 const CATEGORIES = [
-  { value: 'health',      label: 'Health',      icon: '💪', color: '#4ade80', glow: 'rgba(74,222,128,0.2)',  border: 'rgba(74,222,128,0.25)',  bg: 'rgba(74,222,128,0.08)'  },
-  { value: 'learning',    label: 'Learning',    icon: '📚', color: '#60a5fa', glow: 'rgba(96,165,250,0.2)',  border: 'rgba(96,165,250,0.25)',  bg: 'rgba(96,165,250,0.08)'  },
-  { value: 'fitness',     label: 'Fitness',     icon: '🏃', color: '#fb923c', glow: 'rgba(251,146,60,0.2)',  border: 'rgba(251,146,60,0.25)',  bg: 'rgba(251,146,60,0.08)'  },
-  { value: 'mindfulness', label: 'Mindfulness', icon: '🧘', color: '#a78bfa', glow: 'rgba(167,139,250,0.2)', border: 'rgba(167,139,250,0.25)', bg: 'rgba(167,139,250,0.08)' },
-  { value: 'other',       label: 'Other',       icon: '⭐', color: '#94a3b8', glow: 'rgba(148,163,184,0.2)', border: 'rgba(148,163,184,0.25)', bg: 'rgba(148,163,184,0.08)' },
+  { value: 'health',      label: 'Health',      icon: '💪', color: '#16a34a', bg: '#f0fdf4', border: '#86efac', iconBg: '#dcfce7' },
+  { value: 'learning',    label: 'Learning',    icon: '📚', color: '#2563eb', bg: '#eff6ff', border: '#bfdbfe', iconBg: '#dbeafe' },
+  { value: 'fitness',     label: 'Fitness',     icon: '🏃', color: '#ea580c', bg: '#fff7ed', border: '#fed7aa', iconBg: '#ffedd5' },
+  { value: 'mindfulness', label: 'Mindfulness', icon: '🧘', color: '#7c3aed', bg: '#f5f3ff', border: '#c4b5fd', iconBg: '#ede9fe' },
+  { value: 'other',       label: 'Other',       icon: '⭐', color: '#475569', bg: '#f8fafc', border: '#cbd5e1', iconBg: '#f1f5f9' },
 ];
 
 export default function HabitModal({ habit, onClose, onSave }) {
@@ -40,56 +40,49 @@ export default function HabitModal({ habit, onClose, onSave }) {
     <div style={{
       position: 'fixed',
       inset: 0,
-      background: 'rgba(0,0,0,0.8)',
+      background: 'rgba(15,15,30,0.5)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       zIndex: 100,
       padding: '1rem',
-      backdropFilter: 'blur(8px)'
+      backdropFilter: 'blur(6px)'
     }}>
       <div style={{
         width: '100%',
         maxWidth: '460px',
-        background: 'linear-gradient(135deg, #12122a 0%, #0e0e20 100%)',
-        border: '1px solid #2a2a4a',
+        background: '#ffffff',
+        border: '1.5px solid #e8ecf4',
         borderRadius: '24px',
         padding: '2rem',
-        boxShadow: '0 0 80px rgba(124,58,237,0.2), 0 0 40px rgba(0,0,0,0.5)',
-        position: 'relative',
-        overflow: 'hidden'
+        boxShadow: '0 20px 60px rgba(99,102,241,0.15)'
       }}>
-
-        {/* background glow */}
-        <div style={{
-          position: 'absolute',
-          top: '-60px', left: '50%',
-          transform: 'translateX(-50%)',
-          width: '300px', height: '200px',
-          background: 'radial-gradient(ellipse, rgba(124,58,237,0.12) 0%, transparent 70%)',
-          pointerEvents: 'none'
-        }} />
 
         {/* Header */}
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'flex-start',
-          marginBottom: '1.75rem',
-          position: 'relative'
+          marginBottom: '1.75rem'
         }}>
           <div>
             <h3 style={{
               fontSize: '20px',
               fontWeight: '800',
-              color: '#e8e8f0',
+              color: '#1a1a2e',
               margin: '0 0 4px',
               letterSpacing: '-0.3px'
             }}>
-              {habit ? '✏️  Edit Habit' : '⚡  New Quest'}
+              {habit ? '✏️  Edit Habit' : '⚡  New Habit'}
             </h3>
-            <p style={{ fontSize: '13px', color: '#4a4a6a', margin: 0 }}>
-              {habit ? 'Update your habit details' : 'Add a new habit to your arsenal'}
+            <p style={{
+              fontSize: '13px',
+              color: '#94a3b8',
+              margin: 0
+            }}>
+              {habit
+                ? 'Update your habit details'
+                : 'Add a new habit to track daily'}
             </p>
           </div>
           <button
@@ -97,9 +90,9 @@ export default function HabitModal({ habit, onClose, onSave }) {
             style={{
               width: '34px', height: '34px',
               borderRadius: '10px',
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid #2a2a4a',
-              color: '#6b6b8a',
+              background: '#f1f5f9',
+              border: '1.5px solid #e2e8f0',
+              color: '#94a3b8',
               fontSize: '16px',
               display: 'flex',
               alignItems: 'center',
@@ -112,17 +105,18 @@ export default function HabitModal({ habit, onClose, onSave }) {
           </button>
         </div>
 
+        {/* Error */}
         {error && (
           <div style={{
-            background: 'rgba(239,68,68,0.08)',
-            border: '1px solid rgba(239,68,68,0.25)',
+            background: '#fef2f2',
+            border: '1.5px solid #fecaca',
             borderRadius: '10px',
             padding: '10px 14px',
-            color: '#f87171',
+            color: '#dc2626',
             fontSize: '13px',
             marginBottom: '1.25rem'
           }}>
-            ⚠️  {error}
+            ⚠️ {error}
           </div>
         )}
 
@@ -131,7 +125,7 @@ export default function HabitModal({ habit, onClose, onSave }) {
           <label style={{
             fontSize: '12px',
             fontWeight: '700',
-            color: '#6b6b8a',
+            color: '#64748b',
             display: 'block',
             marginBottom: '8px',
             textTransform: 'uppercase',
@@ -153,7 +147,7 @@ export default function HabitModal({ habit, onClose, onSave }) {
           <label style={{
             fontSize: '12px',
             fontWeight: '700',
-            color: '#6b6b8a',
+            color: '#64748b',
             display: 'block',
             marginBottom: '10px',
             textTransform: 'uppercase',
@@ -173,11 +167,15 @@ export default function HabitModal({ habit, onClose, onSave }) {
                 style={{
                   padding: '12px 6px',
                   borderRadius: '12px',
-                  background: category === cat.value ? cat.bg : 'rgba(255,255,255,0.02)',
+                  background: category === cat.value
+                    ? cat.bg
+                    : '#f8fafc',
                   border: category === cat.value
-                    ? `1px solid ${cat.border}`
-                    : '1px solid #2a2a4a',
-                  color: category === cat.value ? cat.color : '#4a4a6a',
+                    ? `1.5px solid ${cat.border}`
+                    : '1.5px solid #e2e8f0',
+                  color: category === cat.value
+                    ? cat.color
+                    : '#94a3b8',
                   fontSize: '11px',
                   fontWeight: '700',
                   display: 'flex',
@@ -185,9 +183,11 @@ export default function HabitModal({ habit, onClose, onSave }) {
                   alignItems: 'center',
                   gap: '5px',
                   transition: 'all 0.15s',
-                  boxShadow: category === cat.value ? `0 0 16px ${cat.glow}` : 'none',
                   textTransform: 'uppercase',
-                  letterSpacing: '0.03em'
+                  letterSpacing: '0.03em',
+                  boxShadow: category === cat.value
+                    ? `0 4px 12px ${cat.border}80`
+                    : 'none'
                 }}
               >
                 <span style={{ fontSize: '22px' }}>{cat.icon}</span>
@@ -201,21 +201,31 @@ export default function HabitModal({ habit, onClose, onSave }) {
         {title.trim() && (
           <div style={{
             background: selectedCat.bg,
-            border: `1px solid ${selectedCat.border}`,
+            border: `1.5px solid ${selectedCat.border}`,
             borderRadius: '12px',
             padding: '12px 16px',
             marginBottom: '1.5rem',
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
-            boxShadow: `0 0 20px ${selectedCat.glow}`
+            boxShadow: `0 4px 12px ${selectedCat.border}60`
           }}>
-            <span style={{ fontSize: '24px' }}>{selectedCat.icon}</span>
+            <div style={{
+              width: '40px', height: '40px',
+              borderRadius: '10px',
+              background: selectedCat.iconBg,
+              display: 'flex', alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '20px',
+              flexShrink: 0
+            }}>
+              {selectedCat.icon}
+            </div>
             <div>
               <p style={{
                 fontSize: '14px',
                 fontWeight: '700',
-                color: '#e8e8f0',
+                color: '#1a1a2e',
                 margin: '0 0 2px'
               }}>
                 {title}
@@ -231,26 +241,27 @@ export default function HabitModal({ habit, onClose, onSave }) {
                 {selectedCat.label} · 0 day streak
               </p>
             </div>
-            <div style={{
+            <span style={{
               marginLeft: 'auto',
               fontSize: '11px',
-              color: '#4a4a6a'
+              color: '#94a3b8',
+              fontWeight: '500'
             }}>
               Preview
-            </div>
+            </span>
           </div>
         )}
 
-        {/* Action buttons */}
+        {/* Buttons */}
         <div style={{ display: 'flex', gap: '10px' }}>
           <button
             onClick={onClose}
             style={{
               flex: 1,
               padding: '12px',
-              background: 'transparent',
-              border: '1px solid #2a2a4a',
-              color: '#6b6b8a',
+              background: '#f8fafc',
+              border: '1.5px solid #e2e8f0',
+              color: '#64748b',
               borderRadius: '12px',
               fontSize: '14px',
               fontWeight: '600'
@@ -265,17 +276,21 @@ export default function HabitModal({ habit, onClose, onSave }) {
               flex: 2,
               padding: '12px',
               background: loading
-                ? 'rgba(124,58,237,0.4)'
-                : 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+                ? '#c4b5fd'
+                : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
               color: 'white',
               fontWeight: '700',
               fontSize: '14px',
               borderRadius: '12px',
-              boxShadow: loading ? 'none' : '0 4px 24px rgba(124,58,237,0.4)',
+              boxShadow: loading
+                ? 'none'
+                : '0 4px 20px rgba(99,102,241,0.35)',
               letterSpacing: '0.02em'
             }}
           >
-            {loading ? '⏳  Saving...' : habit ? '✓  Save Changes' : '⚡  Add to Arsenal'}
+            {loading
+              ? '⏳ Saving...'
+              : habit ? '✓ Save Changes' : '⚡ Add Habit'}
           </button>
         </div>
 

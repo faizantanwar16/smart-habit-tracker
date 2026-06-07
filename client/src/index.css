@@ -4,26 +4,26 @@
   padding: 0;
 }
 
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: #080812;
-  color: #e8e8f0;
-  min-height: 100vh;
+  background: #f0f2f8;
+  color: #1a1a2e;
 }
 
-a {
-  color: #a78bfa;
-  text-decoration: none;
-}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #c8cfe0; border-radius: 2px; }
 
-a:hover {
-  color: #c4b5fd;
-}
-
-input, select {
-  background: #12122a;
-  border: 1px solid #2a2a4a;
-  color: #e8e8f0;
+input, select, textarea {
+  background: #f8f9fc;
+  border: 1.5px solid #e2e8f0;
+  color: #1a1a2e;
   border-radius: 10px;
   padding: 11px 14px;
   font-size: 14px;
@@ -34,13 +34,12 @@ input, select {
 }
 
 input:focus, select:focus {
-  border-color: #7c3aed;
-  box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+  background: #fff;
 }
 
-input::placeholder {
-  color: #3a3a5a;
-}
+input::placeholder { color: #a0aec0; }
 
 button {
   cursor: pointer;
@@ -54,13 +53,13 @@ button {
 }
 
 button:hover {
-  filter: brightness(1.15);
-  transform: translateY(-2px);
+  filter: brightness(1.05);
+  transform: translateY(-1px);
 }
 
 button:active {
-  transform: translateY(0px);
-  filter: brightness(0.95);
+  transform: translateY(0);
+  filter: brightness(0.97);
 }
 
 button:disabled {
@@ -70,15 +69,71 @@ button:disabled {
   filter: none;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
+a { color: #6366f1; text-decoration: none; }
+
+.app-shell {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
-::-webkit-scrollbar-track {
-  background: #080812;
+.sidebar {
+  width: 230px;
+  min-width: 230px;
+  height: 100vh;
+  background: #1e1b4b;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 50;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #2a2a4a;
-  border-radius: 3px;
+.main-content {
+  margin-left: 230px;
+  flex: 1;
+  height: 100vh;
+  overflow-y: auto;
+  background: #f0f2f8;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-bar {
+  height: 64px;
+  min-height: 64px;
+  background: #ffffff;
+  border-bottom: 1.5px solid #e8ecf4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.page-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.bento-card {
+  background: #ffffff;
+  border: 1.5px solid #e8ecf4;
+  border-radius: 16px;
+  padding: 1.25rem;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(99,102,241,0.06);
+}
+
+.bento-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99,102,241,0.1);
 }
