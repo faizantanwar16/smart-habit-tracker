@@ -53,8 +53,10 @@ export default function Dashboard() {
   const openEdit   = (habit) => { setEditHabit(habit); setShowModal(true); };
   const closeModal = ()      => { setShowModal(false); setEditHabit(null); };
 
-  const today          = new Date().toISOString().split('T')[0];
-  const completedToday = habits.filter(h => h.completedDates.includes(today)).length;
+ const today          = new Date().toDateString();
+const completedToday = habits.filter(h =>
+  h.completedDates.some(date => new Date(date).toDateString() === today)
+).length;
   const todayPct       = habits.length > 0
     ? Math.round((completedToday / habits.length) * 100) : 0;
   const longestStreak  = habits.length > 0

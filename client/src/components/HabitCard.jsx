@@ -1,4 +1,4 @@
-const today = new Date().toISOString().split('T')[0];
+const today = new Date().toDateString();
 
 const CATEGORIES = {
   health:      { color: '#16a34a', bg: '#f0fdf4', border: '#86efac', iconBg: '#dcfce7', icon: '💪', label: 'Health'      },
@@ -9,7 +9,9 @@ const CATEGORIES = {
 };
 
 export default function HabitCard({ habit, onComplete, onEdit, onDelete }) {
-  const doneToday  = habit.completedDates.includes(today);
+  const doneToday = habit.completedDates.some(
+  date => new Date(date).toDateString() === today
+);
   const cat        = CATEGORIES[habit.category] || CATEGORIES.other;
   const streakIcon = habit.streak >= 14 ? '🔥🔥🔥'
                    : habit.streak >= 7  ? '🔥🔥'
