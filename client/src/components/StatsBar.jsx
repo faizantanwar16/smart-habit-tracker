@@ -1,8 +1,9 @@
 export default function StatsBar({ habits }) {
-  const today = new Date().toISOString().split('T')[0];
-
+ const today          = new Date().toDateString();
+const completedToday = habits.filter(h =>
+  h.completedDates.some(date => new Date(date).toDateString() === today)
+).length;
   const total          = habits.length;
-  const completedToday = habits.filter(h => h.completedDates.includes(today)).length;
   const todayPct       = total > 0 ? Math.round((completedToday / total) * 100) : 0;
   const longestStreak  = total > 0 ? Math.max(...habits.map(h => h.streak)) : 0;
   const totalDone      = habits.reduce((sum, h) => sum + h.completedDates.length, 0);
