@@ -10,8 +10,8 @@ export default function Register() {
   const [error, setError]       = useState('');
   const [loading, setLoading]   = useState(false);
 
-  const { login } = useAuth();
-  const navigate  = useNavigate();
+  const { login }  = useAuth();
+  const navigate   = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ export default function Register() {
       login({ id: data._id, name: data.name, email: data.email }, data.token);
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.msg || 'Registration failed. Try again.');
+      setError(err.response?.data?.message || 'Registration failed. Try again.');
     } finally {
       setLoading(false);
     }
@@ -75,41 +75,56 @@ export default function Register() {
           lineHeight: 1.6,
           margin: '0 0 3rem'
         }}>
-          Build streaks.<br />Level up your life.
+          Your journey to better<br />habits starts here.
         </p>
 
-        {/* Feature list */}
+        {/* Steps */}
         {[
-          { icon: '⚡', text: 'Track daily habits effortlessly' },
-          { icon: '🔥', text: 'Build powerful streaks' },
-          { icon: '🏆', text: 'Celebrate your milestones' },
-          { icon: '📊', text: 'Visualize your progress' },
-        ].map(f => (
-          <div key={f.text} style={{
+          { num: '01', title: 'Create account',   desc: 'Sign up in seconds'          },
+          { num: '02', title: 'Add your habits',  desc: 'Choose what to track'        },
+          { num: '03', title: 'Check in daily',   desc: 'Mark habits complete'        },
+          { num: '04', title: 'Build streaks',    desc: 'Watch your progress grow'    },
+        ].map((step, i) => (
+          <div key={step.num} style={{
             display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            marginBottom: '14px',
+            alignItems: 'flex-start',
+            gap: '14px',
+            marginBottom: '20px',
             width: '100%'
           }}>
             <div style={{
               width: '34px', height: '34px',
               borderRadius: '10px',
-              background: 'rgba(255,255,255,0.08)',
+              background: i === 0
+                ? 'linear-gradient(135deg, #6366f1, #8b5cf6)'
+                : 'rgba(255,255,255,0.06)',
               display: 'flex', alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '16px',
-              flexShrink: 0
+              fontSize: '12px',
+              fontWeight: '800',
+              color: i === 0 ? 'white' : 'rgba(255,255,255,0.3)',
+              flexShrink: 0,
+              border: i === 0 ? 'none' : '1px solid rgba(255,255,255,0.08)'
             }}>
-              {f.icon}
+              {step.num}
             </div>
-            <span style={{
-              fontSize: '13px',
-              color: 'rgba(255,255,255,0.6)',
-              fontWeight: '500'
-            }}>
-              {f.text}
-            </span>
+            <div>
+              <p style={{
+                fontSize: '13px',
+                fontWeight: '700',
+                color: i === 0 ? '#ffffff' : 'rgba(255,255,255,0.5)',
+                margin: '0 0 2px'
+              }}>
+                {step.title}
+              </p>
+              <p style={{
+                fontSize: '12px',
+                color: 'rgba(255,255,255,0.3)',
+                margin: 0
+              }}>
+                {step.desc}
+              </p>
+            </div>
           </div>
         ))}
       </div>
@@ -134,14 +149,14 @@ export default function Register() {
             margin: '0 0 6px',
             letterSpacing: '-0.4px'
           }}>
-            Create account
+            Create your account
           </h2>
           <p style={{
             fontSize: '14px',
             color: '#94a3b8',
             margin: '0 0 2rem'
           }}>
-            Start your quest today
+            Start building better habits today
           </p>
 
           {error && (
@@ -170,13 +185,13 @@ export default function Register() {
                 textTransform: 'uppercase',
                 letterSpacing: '0.08em'
               }}>
-                Name
+                Full Name
               </label>
               <input
                 type="text"
                 value={name}
                 onChange={e => setName(e.target.value)}
-                placeholder="Your name"
+                placeholder="Faizan"
                 required
               />
             </div>
@@ -238,7 +253,7 @@ export default function Register() {
                 letterSpacing: '0.02em'
               }}
             >
-              {loading ? '⏳ Creating account...' : '🚀 Begin Your Quest'}
+              {loading ? '⏳ Creating account...' : '🚀 Create Account'}
             </button>
           </form>
 
