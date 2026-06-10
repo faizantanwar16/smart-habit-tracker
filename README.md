@@ -53,16 +53,16 @@ npm run dev
 ## Screenshots
 
 ### Register Page
-![Register](./screenshots/Register.png)
+![Register](./client/screenshots/Register.png)
 
 ### Login Page
-![Login](./screenshots/Login.png)
+![Login](./client/screenshots/Login.png)
 
 ### Dashboard
-![Dashboard](./screenshots/Dashboard.png)
+![Dashboard](./client/screenshots/Dashboard.png)
 
 ### Add Habit Modal
-![AddHabit](./screenshots/AddHabit.png)
+![AddHabit](./client/screenshots/AddHabit.png)
 
 ## Author
 
